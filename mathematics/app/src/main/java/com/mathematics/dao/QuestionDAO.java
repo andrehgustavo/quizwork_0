@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mathematics.model.ObjectiveQuestion;
+import com.mathematics.model.MathQuestion;
 import com.mathematics.model.NumericAnswer;
 import com.quizwork.Question;
 
@@ -25,7 +25,7 @@ public class QuestionDAO extends WithDAO {
 		values.put(QUESTION_QUIZ, question.getQuiz().getId());
 		question.setId(db.insert(QUESTION_TABLE, null, values));
 
-		NumericAnswer op = ((ObjectiveQuestion) question).getOptions();
+		NumericAnswer op = ((MathQuestion) question).getCorrectAnswer();
 		values.clear();
 		values.put(NUMERIC_ANSWER_TEXT, op.getNumber());
 		values.put(NUMERIC_ANSWER_QUESTION, question.getId());

@@ -6,17 +6,17 @@ import com.quizwork.ValidationException;
 
 import java.io.Serializable;
 
-public class ObjectiveQuestion extends Question implements Serializable {
+public class MathQuestion extends Question implements Serializable {
 	private NumericAnswer numericAnswer;
 
-	public ObjectiveQuestion() {}
+	public MathQuestion() {}
 
-	public ObjectiveQuestion(String text) {
+	public MathQuestion(String text) {
 		this.text = text;
 		this.numericAnswer = null;
 	}
 
-	public ObjectiveQuestion(long id, String text, Answer correct) {
+	public MathQuestion(long id, String text, Answer correct) {
 		this.id = id;
 		this.text = text;
 		this.correct = correct;
@@ -34,11 +34,11 @@ public class ObjectiveQuestion extends Question implements Serializable {
 			throw new ValidationException("You must select the Correct numericAnswer for each Question");
 	}
 
-	public NumericAnswer getOptions() {
+	public NumericAnswer getCorrectAnswer() {
 		return numericAnswer;
 	}
 
-	public void setOptions(NumericAnswer numericAnswer) {
+	public void setCorrectAnswer(NumericAnswer numericAnswer) {
 		this.numericAnswer = numericAnswer;
 	}
 }

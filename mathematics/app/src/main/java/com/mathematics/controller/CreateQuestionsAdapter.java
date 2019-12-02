@@ -19,7 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.mathematics.R;
 import com.mathematics.model.NumericAnswer;
-import com.mathematics.model.ObjectiveQuestion;
+import com.mathematics.model.MathQuestion;
 import com.quizwork.Question;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import java.util.List;
 public class CreateQuestionsAdapter extends BaseAdapter implements View.OnClickListener, AdapterView.OnItemClickListener {
 	private List<Question> questions = new ArrayList<>();
 	private LayoutInflater inflater;
-	private TextView optionsView;
+	private TextView correctAnswerView;
 
 	CreateQuestionsAdapter(Context context) {
 		this.inflater = LayoutInflater.from(context);
@@ -45,7 +45,7 @@ public class CreateQuestionsAdapter extends BaseAdapter implements View.OnClickL
 		View remove = v.findViewById(R.id.create_question_remove);
 		remove.setOnClickListener(this);
 		remove.setTag(i);
-		optionsView = v.findViewById(R.id.create_question_options);
+		correctAnswerView = v.findViewById(R.id.create_question_answer);
 
 		return v;
 	}
@@ -77,12 +77,12 @@ public class CreateQuestionsAdapter extends BaseAdapter implements View.OnClickL
 					public void onClick(DialogInterface dialog, int which) {
 						String text = (input.getText().toString());
 						if (question == null) {
-							questions.add(new ObjectiveQuestion(text));
+							questions.add(new MathQuestion(text));
 							Toast.makeText(inflater.getContext(), "Question added", Toast.LENGTH_LONG).show();
 						} else {
-							((ObjectiveQuestion) question).setOptions((new NumericAnswer(Double.valueOf(text), question)));
-							optionsView.setText(text);
-							question.setCorrect(((ObjectiveQuestion) question).getOptions());
+							((MathQuestion) question).setCorrectAnswer((new NumericAnswer(Double.valueOf(text), question)));
+							correctAnswerView.setText(text);
+							question.setCorrect(((MathQuestion) question).getCorrectAnswer());
 							Toast.makeText(inflater.getContext(), "NumericAnswer added", Toast.LENGTH_LONG).show();
 						}
 					}

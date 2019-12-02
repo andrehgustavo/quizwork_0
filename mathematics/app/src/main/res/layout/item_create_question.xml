@@ -35,7 +35,7 @@
 	</LinearLayout>
 
 	<TextView
-		android:id="@+id/create_question_options"
+		android:id="@+id/create_question_answer"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:hint="The answer"/>

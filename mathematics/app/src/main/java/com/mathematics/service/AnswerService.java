@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.mathematics.dao.AnswerDAO;
-import com.mathematics.model.ObjectiveQuestionCalculator;
+import com.mathematics.model.MathQuestionCalculator;
 import com.quizwork.QuizAnswer;
 import com.quizwork.Quiz;
 import com.mathematics.model.SummationQuizCalculator;
@@ -32,7 +32,7 @@ public class AnswerService extends WithContext {
 		if (quizAnswer.getQuestionAnswers().get(0).getQuestion() == null)
 			throw new ValidationException("Question is required in QuestionAnswer");
 
-		quizAnswer.calculateScore(new SummationQuizCalculator(), new ObjectiveQuestionCalculator());
+		quizAnswer.calculateScore(new SummationQuizCalculator(), new MathQuestionCalculator());
 
 		return AnswerDAO.getInstance(context).create(quizAnswer);
 	}

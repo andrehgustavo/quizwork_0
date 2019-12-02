@@ -4,7 +4,7 @@ import com.quizwork.QuestionAnswer;
 import com.quizwork.QuestionCalculator;
 import com.quizwork.ValidationException;
 
-public class ObjectiveQuestionCalculator implements QuestionCalculator {
+public class MathQuestionCalculator implements QuestionCalculator {
 	@Override
 	public void calculate(QuestionAnswer questionAnswer) throws ValidationException {
 		if (questionAnswer.getAnswer() == null)

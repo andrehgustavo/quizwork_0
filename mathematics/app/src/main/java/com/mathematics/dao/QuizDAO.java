@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.quizwork.Category;
 import com.mathematics.model.NumericAnswer;
-import com.mathematics.model.ObjectiveQuestion;
+import com.mathematics.model.MathQuestion;
 import com.quizwork.Quiz;
 import com.quizwork.User;
 
@@ -68,7 +68,7 @@ public class QuizDAO extends WithDAO {
 		Cursor c = db.rawQuery(sql, new String[]{code});
 
 		Quiz result = null;
-		ObjectiveQuestion lastQuestion = new ObjectiveQuestion();
+		MathQuestion lastQuestion = new MathQuestion();
 		while (c.moveToNext()) {
 			if (result == null) {
 				result = new Quiz(
@@ -82,13 +82,13 @@ public class QuizDAO extends WithDAO {
 						new User(c.getLong(c.getColumnIndex(QUIZ_USER))));
 			}
 			if (lastQuestion.getId() != c.getLong(c.getColumnIndex(QUESTION_ID))) {
-				lastQuestion = new ObjectiveQuestion(
+				lastQuestion = new MathQuestion(
 						c.getLong(c.getColumnIndex(QUESTION_ID)),
 						c.getString(c.getColumnIndex(QUESTION_TEXT)),
 						new NumericAnswer(c.getLong(c.getColumnIndex(QUESTION_OPTION)), null));
 				result.getQuestions().add(lastQuestion);
 			}
-			lastQuestion.setOptions((new NumericAnswer(c.getLong(c.getColumnIndex(NUMERIC_ANSWER_ID)), Double.valueOf(c.getString(c.getColumnIndex(NUMERIC_ANSWER_TEXT))))));
+			lastQuestion.setCorrectAnswer((new NumericAnswer(c.getLong(c.getColumnIndex(NUMERIC_ANSWER_ID)), Double.valueOf(c.getString(c.getColumnIndex(NUMERIC_ANSWER_TEXT))))));
 		}
 		c.close();
 		return result;
@@ -103,7 +103,7 @@ public class QuizDAO extends WithDAO {
 
 		ArrayList<Quiz> result = new ArrayList<>();
 		Quiz lastQuiz = new Quiz();
-		ObjectiveQuestion lastQuestion = new ObjectiveQuestion();
+		MathQuestion lastQuestion = new MathQuestion();
 		while (c.moveToNext()) {
 			if (lastQuiz.getId() != c.getLong(c.getColumnIndex(QUIZ_ID))) {
 				lastQuiz = new Quiz(
@@ -118,13 +118,13 @@ public class QuizDAO extends WithDAO {
 				result.add(lastQuiz);
 			}
 			if (lastQuestion.getId() != c.getLong(c.getColumnIndex(QUESTION_ID))) {
-				lastQuestion = new ObjectiveQuestion(
+				lastQuestion = new MathQuestion(
 						c.getLong(c.getColumnIndex(QUESTION_ID)),
 						c.getString(c.getColumnIndex(QUESTION_TEXT)),
 						new NumericAnswer(c.getLong(c.getColumnIndex(QUESTION_OPTION)), null));
 				lastQuiz.getQuestions().add(lastQuestion);
 			}
-			lastQuestion.setOptions((new NumericAnswer(c.getLong(c.getColumnIndex(NUMERIC_ANSWER_ID)), Double.valueOf(c.getString(c.getColumnIndex(NUMERIC_ANSWER_TEXT))))));
+			lastQuestion.setCorrectAnswer((new NumericAnswer(c.getLong(c.getColumnIndex(NUMERIC_ANSWER_ID)), Double.valueOf(c.getString(c.getColumnIndex(NUMERIC_ANSWER_TEXT))))));
 		}
 		c.close();
 		return result;
